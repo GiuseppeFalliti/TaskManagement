@@ -3,10 +3,11 @@
 .dashboard {
     padding: 20px;
     min-height: 100vh;
+    min-width: 80vh;
     background: linear-gradient(135deg, #443a9e 0%, #644bff 100%);
     font-family: 'Montserrat', sans-serif;
     color: white;
-    width: 120%;
+    width: 80%;
     
 }
 
@@ -42,9 +43,9 @@
 }
 
 .task-container {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 2wpx;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     backdrop-filter: blur(10px);
