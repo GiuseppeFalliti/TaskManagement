@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../mainPage.css';
 
 const MainPage = () => {
@@ -12,32 +13,74 @@ const MainPage = () => {
     status: 'todo' // todo, inProgress, completed
   });
 
-  // Funzione per aggiungere o modificare un task
-  const TaskManage = (e) => {
-    e.preventDefault(); // previene l'invio del form
-    if (taskForm.title.trim()) {
-      if (editingTask) {
-        // Modifica task esistente
-        setTasks(tasks.map(task =>
-          task.id === editingTask.id ? { ...task, ...taskForm } : task
-         ));
-      } else {
-        //  creazione di una nuova task
-        setTasks([...tasks, {
-          id: Date.now(), 
-          ...taskForm,
-          createdAt: new Date().toISOString()
-        }]);
+  // Carica le task dell'utente all'avvio del componente
+  useEffect(() => {
+    getTasks();
+  }, []);
+
+  // Funzione per ottenere le task dell'utente
+  const getTasks = async () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const response = await axios.get('http://localhost:3000/api/tasks', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setTasks(response.data);
+      } catch (error) {
+        console.error('Errore nel caricamento delle task:', error);
       }
-      // chiude la finestra di modifica
-      setTaskForm({
-        title: '',
-        description: '',
-        dueDate: '',
-        status: 'todo'
+    }
+  };
+
+  // Funzione per aggiungere o modificare un task
+  const TaskManage = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    if (taskForm.title.trim()) {
+      try {
+        if (editingTask) {
+          // Modifica task esistente
+          await axios.put(`http://localhost:3000/api/tasks/${editingTask.id}`, taskForm, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+        } else {
+          // Creazione di una nuova task
+          await axios.post('http://localhost:3000/api/tasks', taskForm, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+        }
+        // Ricarica le task dopo la modifica
+        getTasks();
+        // Resetta il form
+        setTaskForm({
+          title: '',
+          description: '',
+          dueDate: '',
+          status: 'todo'
+        });
+        setShowModal(false);
+        setEditingTask(null);
+      } catch (error) {
+        console.error('Errore nella gestione della task:', error);
+      }
+    }
+  };
+
+  // Funzione per eliminare un task
+  const deleteTask = async (id) => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    try {
+      await axios.delete(`http://localhost:3000/api/tasks/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
       });
-      setShowModal(false);
-      setEditingTask(null);
+      getTasks(); // Ricarica le task dopo l'eliminazione
+    } catch (error) {
+      console.error('Errore nell\'eliminazione della task:', error);
     }
   };
 
@@ -47,15 +90,10 @@ const MainPage = () => {
     setTaskForm({
       title: task.title,
       description: task.description,
-      dueDate: task.dueDate,
+      dueDate: task.due_date,
       status: task.status
     });
     setShowModal(true);
-  };
-
-  // Funzione per eliminare un task
-  const deleteTask = (id) => {
-    setTasks(tasks.filter(task => task.id !== id));
   };
 
   return (
