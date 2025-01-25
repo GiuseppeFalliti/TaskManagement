@@ -260,9 +260,10 @@
     overflow-y: auto;
     margin: auto;
     top: 38%;
-    left: 50%;
+    left: 40%;
     transform: translate(-50%, -50%);
 }
+
 
 .modal h2 {
     color: #443a9e;
