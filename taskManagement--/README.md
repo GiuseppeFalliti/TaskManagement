@@ -65,11 +65,11 @@ taskManagement--/
 
 ## Foto del progetto
 
-![Screenshot del progetto](taskManagement--/assets/login.png)
+![Screenshot del progetto](src/assets/login.png)
 
-![Screenshot del progetto](taskManagement--/assets/mainPage.png)
+![Screenshot del progetto](src/assets/mainPage.png)
 
-![Screenshot del progetto](taskManagement--/assets/task.png)
+![Screenshot del progetto](src/assets/task.png)
 
 ## API Endpoints
 
