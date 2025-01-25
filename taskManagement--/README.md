@@ -63,6 +63,14 @@ taskManagement--/
 └── README.md
 ```
 
+## Foto del progetto
+
+![Screenshot del progetto](taskManagement--/assets/login.png)
+
+![Screenshot del progetto](taskManagement--/assets/mainPage.png)
+
+![Screenshot del progetto](taskManagement--/assets/task.png)
+
 ## API Endpoints
 
 ### Autenticazione
