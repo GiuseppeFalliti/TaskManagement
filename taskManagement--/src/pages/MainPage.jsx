@@ -100,7 +100,11 @@ const MainPage = () => {
     //header
     <div className="dashboard">
       <header className="dashboard-header">
-        <h1>Gestione Task</h1>
+        <div className="title-logo">
+          <h1>Gestione Task</h1>
+          <img src="./src/assets/logo.png" alt="logos" />
+        </div>
+        
         <div className="user-info">
           <span className="user-avatar" >👤</span>
         </div>

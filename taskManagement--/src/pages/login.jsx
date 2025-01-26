@@ -41,7 +41,6 @@ const Login = ({ setIsAuthenticated }) => {
       setError(err.message);
     }
   };
-
   return (
     <div className='container'>
       <h1>Login</h1>
@@ -58,6 +57,7 @@ const Login = ({ setIsAuthenticated }) => {
             required
           />
         </div>
+        
 
         <div className='password-container'>
           <input 

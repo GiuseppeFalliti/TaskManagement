@@ -11,6 +11,14 @@
     
 }
 
+.title-logo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+}
+
+
 .dashboard-header {
     display: flex;
     justify-content: space-between;
@@ -19,9 +27,14 @@
     color: white;
 }
 
+.title-logo img {
+    width: 70px;
+    height: 70px;
+}
+
 .dashboard-header h1 {
-    font-size: 32px;
-    font-weight: 600;
+    font-size: 34px;
+    font-weight: 800;
     margin: 0;
 }
 
