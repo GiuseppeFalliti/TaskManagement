@@ -22,26 +22,6 @@ const db = new sqlite3.Database(dbPath, (err) => {
     return;
   }
   console.log('Connesso a  SQLite database');
-
-  // Creazione della tabella users
-  db.run(`
-    CREATE TABLE IF NOT EXISTS users (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      surname TEXT NOT NULL,
-      email TEXT NOT NULL,
-      password TEXT NOT NULL,
-      id_task INTEGER,
-      FOREIGN KEY (id_task) REFERENCES tasks (id)
-    )
-  `, (err) => {
-    if (err) {
-      console.error('Errore di creazione della tabella:', err);
-      return;
-    }
-    console.log('Tabella degli utenti pronta');
-  });
-
    
     // Crea la tabella tasks
     db.run(`
