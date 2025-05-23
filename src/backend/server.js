@@ -59,37 +59,6 @@ app.get('/api/user/:id', (req, res) => {
 
 })  
 
-// Endpoint per registrare un nuovo utente
-app.post('/api/users', (req, res)=> {
-  const { name, email, password, id_task } = req.body;
-  const sql = `INSERT INTO users (name, surname, email, password, id_task) VALUES (?, ?, ?, ?, ?)`;
-  db.run(sql, [name, email, password, id_task], function(err) {
-    if (err) {
-      console.error('Errore durante l\'inserimento dell\'utente:', err);
-      return res.status(500).json({ message: 'Errore durante l inserimento dell\'utente' });
-    }
-    res.json({ message: 'Utente creato con successo', id: this.lastID });
-  });
-});
-
-//Endpoint per login utente
-app.post('/api/login', (req, res) => {
-  const { email, password } = req.body;
-  const sql = `SELECT * FROM users WHERE email = ? AND password = ?`;
-  db.get(sql, [email, password], (err, row) => {
-    if (err) {
-      console.error('Errore durante il login dell\'utente:', err);
-      return res.status(500).json({ message: 'Errore durante il login dell utente' });
-    }
-    if (row) {
-      res.json({ message: 'Login effettuato con successo', id: row.id });
-    } else {
-      res.status(401).json({ message: 'Credenziali di accesso non valide' });
-    }
-  });
-});
-
-
 // ottieni tutte le task
 app.get('/api/tasks', (req, res) => {
   db.all('SELECT * FROM tasks', [], (err, rows) => {
